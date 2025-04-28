@@ -83,12 +83,11 @@ if user_data.get("last_login_date") != today:
     st.success("🎁 ログインボーナス＋1pt！")
 
 # キャラクター＆背景表示
-
-st.image(BACKGROUNDS.get(user_data["background"], "bg_default.png"), use_column_width=True)
+st.image(BACKGROUNDS.get(user_data["background"], "bg_default.png"), use_container_width=True)
 
 level = get_level(user_data["records"], user_data["login_days"])
 char_image = CHARACTERS[user_data["character"]][level]
-st.image(char_image, width=250)
+st.image(char_image, use_container_width=True)  # 修正：use_container_width=Trueに変更
 st.write(f"【{user_data['character']}】育成中🌱")
 st.write(f"現在のポイント：{user_data['points']}pt / 記録数：{user_data['records']}回 / ログイン日数：{user_data['login_days']}日")
 
@@ -235,5 +234,3 @@ if user_data["badges"]:
         st.write(f"・{badge}")
 else:
     st.write("まだバッジはありません。")
-
-#このコードにキャラクターが背景の上に重なる形で中央に乗せるようにしつつ，キャラクター選択のメッセージと処理を加えた修正版のコードを作成してください。
