@@ -1,3 +1,4 @@
+# CBTアプリ with 選べるキャラクター＆成長＆バッジシステム
 import streamlit as st
 import pandas as pd
 import json
@@ -81,22 +82,13 @@ if user_data.get("last_login_date") != today:
     save_user_data(user_data)
     st.success("🎁 ログインボーナス＋1pt！")
 
-# 背景画像を表示
+# キャラクター＆背景表示
+
 st.image(BACKGROUNDS.get(user_data["background"], "bg_default.png"), use_column_width=True)
 
-# キャラクター＆背景表示
 level = get_level(user_data["records"], user_data["login_days"])
 char_image = CHARACTERS[user_data["character"]][level]
-
-# HTMLとCSSを使ってキャラクターを中央に配置
-st.markdown(
-    f"""
-    <div style="position: relative; display: flex; justify-content: center; align-items: center; height: 500px;">
-        <img src="{BACKGROUNDS.get(user_data["background"], 'bg_default.png')}" style="position: absolute; width: 100%; height: 100%; object-fit: cover;" />
-        <img src="{char_image}" style="position: absolute; width: 250px; z-index: 1;" />
-    </div>
-    """, unsafe_allow_html=True)
-
+st.image(char_image, width=250)
 st.write(f"【{user_data['character']}】育成中🌱")
 st.write(f"現在のポイント：{user_data['points']}pt / 記録数：{user_data['records']}回 / ログイン日数：{user_data['login_days']}日")
 
@@ -244,3 +236,4 @@ if user_data["badges"]:
 else:
     st.write("まだバッジはありません。")
 
+#このコードにキャラクターが背景の上に重なる形で中央に乗せるようにしつつ，キャラクター選択のメッセージと処理を加えた修正版のコードを作成してください。
