@@ -1,4 +1,3 @@
-# CBTアプリ with 選べるキャラクター＆成長＆バッジシステム
 import streamlit as st
 import pandas as pd
 import json
@@ -7,7 +6,6 @@ from datetime import datetime, date
 
 # ←★ここで最初に st.set_page_config を書く
 st.set_page_config(page_title="CBT育成アプリ", layout="centered")
-
 
 # データ保存ファイル
 USER_DATA_FILE = "user_data.json"
@@ -85,10 +83,14 @@ if user_data.get("last_login_date") != today:
 # キャラクター＆背景表示
 st.image(BACKGROUNDS.get(user_data["background"], "bg_default.png"), use_container_width=True)
 
-level = get_level(user_data["records"], user_data["login_days"])
-char_image = CHARACTERS[user_data["character"]][level]
-st.image(char_image, use_container_width=True)  # 修正：use_container_width=Trueに変更
-st.write(f"【{user_data['character']}】育成中🌱")
+if user_data["character"] is not None:
+    level = get_level(user_data["records"], user_data["login_days"])
+    char_image = CHARACTERS[user_data["character"]][level]
+    st.image(char_image, use_container_width=True)
+    st.write(f"【{user_data['character']}】育成中🌱")
+else:
+    st.error("キャラクターが選択されていません。")
+
 st.write(f"現在のポイント：{user_data['points']}pt / 記録数：{user_data['records']}回 / ログイン日数：{user_data['login_days']}日")
 
 # 背景変更オプション
